@@ -21,17 +21,17 @@ CL-USER> (ql:quickload :abcl-spark)
 (:ABCL-SPARK)
 CL-USER> (spark:start-server 8080)
 NIL
-CL-USER> (spark:add-endpoint-handler "/hello/:name" "get"
+CL-USER> (spark:add-endpoint-handler "/hello/:name" :get
            (lambda (req res)
              (let ((get-dict-method (java:jmethod "java.util.Collections$UnmodifiableMap" "get" "java.lang.Object"))
                    (params (java:jcall (jmethod "spark.Request" "params") req)))
                (format nil "Hello, ~a!" (java:jcall get-dict-method params ":name")))))
 NIL
-CL-USER> (spark:add-endpoint-handler "/hello" "get"
+CL-USER> (spark:add-endpoint-handler "/hello" :get
            (lambda (req res)
              "Hello, world!"))
 NIL
-CL-USER> (spark:add-endpoint-handler "/hello" "post"
+CL-USER> (spark:add-endpoint-handler "/hello" :post
            (lambda (req res)
              "Hello, world!"))
 NIL
